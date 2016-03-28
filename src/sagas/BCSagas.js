@@ -1,10 +1,9 @@
 import { call, take, select, put } from 'redux-saga/effects'
-import { SUBMIT_GUESS, submitGuess, guessInvalid, getScore } from '../actions'
-import { getBullsAndCows, getSecret, getScoreList } from '../selectors'
-import { checkGuess, checkGuessValidity, getData } from '../helpers'
-import _ from 'lodash'
+import { SUBMIT_GUESS, submitGuess, guessInvalid, getScore, triesExceeded, gameIsWon } from '../actions'
+import { getBullsAndCows, getSecret, getScoreList, getMaxTries } from '../selectors'
+import { checkGuess, checkGuessValidity, getData, checkNumberOfTries } from '../helpers'
 
-export function *guessSubmission () {
+export function *guessSubmission()  {
   while (true) {
     // wait for SUBMIT_GUESS from user
     const guess = yield take(SUBMIT_GUESS)
@@ -12,8 +11,7 @@ export function *guessSubmission () {
     const bullsAndCows = yield select(getBullsAndCows)
     const scoreList = yield select(getScoreList)
     const secret = yield select(getSecret)
-
-    // TODO Check player's tries
+    const maxTries  = yield select(getMaxTries)
 
     // call helper function to check guess
     const errorResponse = yield call(checkGuessValidity, playerGuess, secret)
@@ -24,6 +22,13 @@ export function *guessSubmission () {
      const scores = yield call(getData, scoreList, getPoints)
 
      yield put(getScore({getPoints, scores}))
+     const gameStatus = yield call(checkNumberOfTries, getPoints, maxTries, secret)
+     if (gameStatus === `The answer was: ${secret}. Play again? `) {
+       yield put(triesExceeded(gameStatus))
+     } else if (gameStatus === 'Congratulations! You won!') {
+       yield put(gameIsWon(gameStatus))
+     }
+
     }
   }
 }

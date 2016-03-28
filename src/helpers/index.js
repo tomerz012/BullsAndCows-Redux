@@ -1,9 +1,12 @@
-export const checkGameStatus = (currentTry, bullsAndCows) => {
-  let status
+export const checkNumberOfTries = (getPoints, maxTries, secret) => {
+  let status = ''
   // if currentTry is equal to max tries
-  if (currentTry === maxTries) {
-    status = ""
+  if ((getPoints.currentTry === maxTries) && (getPoints.guess !== secret)) {
+    status = `The answer was: ${secret}. Play again? `
+  } else if (getPoints.attempts === secret) {
+    status = 'Congratulations! You won!'
   }
+  return status
 
 }
 

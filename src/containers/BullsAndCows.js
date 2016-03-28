@@ -5,19 +5,18 @@ import { bindActionCreators } from 'redux';
 import Center from 'react-center';
 
 // Dumb components
-import { Secret } from '../components/Secret';
 import { BCData } from '../components/BCData';
+import { GameStatus } from '../components/GameStatus'
 
 // Smart components
 import SubmitGuess from './SubmitGuess'
 
-import { ListGroup } from 'react-bootstrap'
-
 class App extends Component {
   render() {
 
-    const secretWordLength = this.props.BullsAndCows.secret.length
+    const secretWord = this.props.BullsAndCows.secret
     const submitResponse = this.props.BullsAndCows.guessError
+    const status = this.props.BullsAndCows.gameStatus
     const data = this.props.BullsAndCows.scores
     const rounds = this.props.BullsAndCows.bullsAndCows
 
@@ -30,9 +29,8 @@ class App extends Component {
       <br/>
 
       <Center>
-      {Secret(secretWordLength)}
+      {GameStatus(status, secretWord)}
       </Center>
-
       <br/>
 
       <Center>
