@@ -1,7 +1,7 @@
-import { SUBMIT_GUESS, GUESS_INVALID, GET_BULLS_AND_COWS, GAME_IS_WON, TRIES_EXCEEDED } from '../actions'
+import { SUBMIT_GUESS, GUESS_INVALID, GET_BULLS_AND_COWS, GAME_IS_WON, TRIES_EXCEEDED, RESET } from '../actions'
 
 const initialState = {
-  secret: "poutine",
+  secret: 'cat',
   bullsAndCows: {
     bulls: 0,
     cows: 0,
@@ -48,6 +48,22 @@ export default function (state = initialState, action) {
          gameStatus: action.payload,
          isEnded: true,
        }
+
+    case RESET:
+      return {
+        secret: 'cat',
+        bullsAndCows: {
+          bulls: 0,
+          cows: 0,
+          currentTry: 0,
+          attempts: '',
+        },
+        scores: [],
+        maxTries: 10,
+        guessError: '',
+        gameStatus: '',
+        isEnded: false,
+      }
   }
   return state
 }

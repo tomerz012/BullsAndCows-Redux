@@ -3,9 +3,13 @@ import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Center from 'react-center';
+import RaisedButton from 'material-ui/lib/raised-button';
+
+// Action creators
+import { resetGame } from '../actions'
 
 // Dumb components
-import { BCData } from '../components/BCData';
+import { BCDataList } from '../components/BCData';
 import { GameStatus } from '../components/GameStatus'
 
 // Smart components
@@ -21,6 +25,12 @@ class App extends Component {
     const data = this.props.BullsAndCows.scores
     const rounds = this.props.BullsAndCows.bullsAndCows
 
+    const reset = (e) => {
+      console.log('Resetting game')
+      this.props.resetGame()
+    }
+    console.log(data)
+
     return (
       <div >
       <br/>
@@ -35,12 +45,14 @@ class App extends Component {
       <br/>
 
       <Center>
-      <SubmitGuess gameStatus={isGameEnded} submitResponse={submitResponse}/>
+      {isGameEnded === false
+      ?<SubmitGuess gameStatus={isGameEnded} submitResponse={submitResponse}/>
+      :<RaisedButton label='play again' onClick={reset} primary={true}/>}
       </Center>
 
       <br/>
       <br/>
-      {BCData(data)}
+      {BCDataList(data)}
       </div>
     );
   }
@@ -54,4 +66,8 @@ const mapStateToProps = (state) => ({
   BullsAndCows: state.BullsAndCows,
 })
 
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = (dispatch) => ({
+  resetGame: bindActionCreators(resetGame, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
