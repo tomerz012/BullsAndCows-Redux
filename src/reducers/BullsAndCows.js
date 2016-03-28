@@ -12,6 +12,7 @@ const initialState = {
   maxTries: 10,
   guessError: '',
   gameStatus: '',
+  isEnded: false,
 }
 
 export default function (state = initialState, action) {
@@ -38,12 +39,14 @@ export default function (state = initialState, action) {
       return {
         ...state,
         gameStatus: action.payload,
+        isEnded: true,
       }
 
     case TRIES_EXCEEDED:
        return {
          ...state,
-         gameStatus: action.payload
+         gameStatus: action.payload,
+         isEnded: true,
        }
   }
   return state

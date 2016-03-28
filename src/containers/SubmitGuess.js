@@ -19,6 +19,7 @@ class SubmitGuess extends Component {
 
   render () {
     const { fields: { guess }, handleSubmit } = this.props
+    const isDisabled = this.props.gameStatus
 
     return (
       <form onSubmit={handleSubmit(this.props.submitGuess)}>
@@ -27,12 +28,13 @@ class SubmitGuess extends Component {
           id='submitGuess'
           hintText="Type your guess here"
           floatingLabelText={this.props.submitResponse}
+          disabled={isDisabled}
           {...guess}/>
         </Center>
         <Center>
         <br/>
         <br/>
-        <RaisedButton type='submit' label="submit guess" primary={true} />
+        <RaisedButton type='submit' disabled={isDisabled} label="submit guess" primary={true} />
         </Center>
       </form>
     )

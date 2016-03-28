@@ -17,6 +17,7 @@ class App extends Component {
     const secretWord = this.props.BullsAndCows.secret
     const submitResponse = this.props.BullsAndCows.guessError
     const status = this.props.BullsAndCows.gameStatus
+    const isGameEnded = this.props.BullsAndCows.isEnded
     const data = this.props.BullsAndCows.scores
     const rounds = this.props.BullsAndCows.bullsAndCows
 
@@ -34,7 +35,7 @@ class App extends Component {
       <br/>
 
       <Center>
-      <SubmitGuess submitResponse={submitResponse}/>
+      <SubmitGuess gameStatus={isGameEnded} submitResponse={submitResponse}/>
       </Center>
 
       <br/>
