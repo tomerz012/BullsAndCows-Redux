@@ -1,7 +1,8 @@
 import { SUBMIT_GUESS, GUESS_INVALID, GET_BULLS_AND_COWS, GAME_IS_WON, TRIES_EXCEEDED, RESET } from '../actions'
+import _ from 'lodash'
 
 const initialState = {
-  secret: 'cat',
+  secret: _.sample(['cat', 'poutine', 'planets', 'fish', 'plane', 'dangerous' ]),
   bullsAndCows: {
     bulls: 0,
     cows: 0,
@@ -15,43 +16,40 @@ const initialState = {
   isEnded: false,
 }
 
-export default function (state = initialState, action) {
+export default function BullsAndCows(state = initialState, action) {
   switch(action.type) {
     case GET_BULLS_AND_COWS:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         bullsAndCows: {
           bulls: action.payload.getPoints.bulls,
           cows: action.payload.getPoints.cows,
           attempts: action.payload.getPoints.attempts,
-          currentTry: action.payload.getPoints.currentTry},
+          currentTry: action.payload.getPoints.currentTry
+        },
         scores: action.payload.scores,
 
-      }
+      })
 
     case GUESS_INVALID:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         guessError: action.error,
-      }
+      })
 
     case GAME_IS_WON:
-      return {
-        ...state,
+      return Object.assign({}, state, {
         gameStatus: action.payload,
         isEnded: true,
-      }
+      })
 
     case TRIES_EXCEEDED:
-       return {
-         ...state,
+       return Object.assign({}, state, {
          gameStatus: action.payload,
          isEnded: true,
-       }
+       })
 
     case RESET:
-      return {
-        secret: 'cat',
+      return Object.assign({},
+        {secret: _.sample(['cat', 'poutine', 'planets', 'fish', 'plane', 'dangerous']),
         bullsAndCows: {
           bulls: 0,
           cows: 0,
@@ -62,8 +60,9 @@ export default function (state = initialState, action) {
         maxTries: 10,
         guessError: '',
         gameStatus: '',
-        isEnded: false,
-      }
+        isEnded: false})
+
+    default:
+      return state
   }
-  return state
 }

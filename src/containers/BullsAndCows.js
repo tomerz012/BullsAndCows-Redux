@@ -25,12 +25,6 @@ class App extends Component {
     const data = this.props.BullsAndCows.scores
     const rounds = this.props.BullsAndCows.bullsAndCows
 
-    const reset = (e) => {
-      console.log('Resetting game')
-      this.props.resetGame()
-    }
-    console.log(data)
-
     return (
       <div >
       <br/>
@@ -47,7 +41,7 @@ class App extends Component {
       <Center>
       {isGameEnded === false
       ?<SubmitGuess gameStatus={isGameEnded} submitResponse={submitResponse}/>
-      :<RaisedButton label='play again' onClick={reset} primary={true}/>}
+      :<RaisedButton label='play again' onClick={this.props.resetGame} primary={true}/>}
       </Center>
 
       <br/>

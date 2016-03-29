@@ -3,6 +3,7 @@ export const GUESS_INVALID = 'GUESS_INVALID'
 export const GET_BULLS_AND_COWS = 'GET_BULLS_AND_COWS'
 export const GAME_IS_WON = 'GAME_IS_WON'
 export const TRIES_EXCEEDED = 'TRIES_EXCEEDED'
+export const UPDATE_BC = 'UPDATE_BC'
 export const RESET = 'RESET'
 
 export const resetGame = () => {

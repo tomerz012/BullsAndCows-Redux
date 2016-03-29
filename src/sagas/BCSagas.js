@@ -17,18 +17,29 @@ export function *guessSubmission()  {
     const errorResponse = yield call(checkGuessValidity, playerGuess, secret)
     yield put(guessInvalid(errorResponse))
 
+    // If response was OK
     if (errorResponse === 'OK') {
-     const getPoints = yield call(checkGuess, bullsAndCows, playerGuess, secret)
-     const scores = yield call(getData, scoreList, getPoints)
-
-     yield put(getScore({getPoints, scores}))
-     const gameStatus = yield call(checkNumberOfTries, getPoints, maxTries, secret)
-     if (gameStatus === `The answer was: ${secret}. Play again? `) {
-       yield put(triesExceeded(gameStatus))
-     } else if (gameStatus === 'Congratulations! You won!') {
-       yield put(gameIsWon(gameStatus))
-     }
-
+      // Update Bulls and Cows
+      const getPoints = yield call(updateBC, bullsAndCows, playerGuess, secret, scoreList)
+      // Check if max tries exceeded or game is won
+      yield call(checkGameStatus, getPoints, maxTries, secret)
     }
   }
+}
+
+function *updateBC (bullsAndCows, playerGuess, secret, scoreList) {
+  const getPoints = yield call(checkGuess, bullsAndCows, playerGuess, secret)
+  const scores = yield call(getData, scoreList, getPoints)
+  yield put(getScore({getPoints, scores}))
+  return getPoints
+}
+
+function *checkGameStatus (getPoints, maxTries, secret) {
+  const gameStatus = yield call(checkNumberOfTries, getPoints, maxTries, secret)
+  if (gameStatus === `The answer was: ${secret}. Play again? `) {
+    yield put(triesExceeded(gameStatus))
+  } else if (gameStatus === 'Congratulations! You won!') {
+    yield put(gameIsWon(gameStatus))
+  }
+
 }

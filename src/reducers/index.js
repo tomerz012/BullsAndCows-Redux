@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import BullsAndCowsReducer from './BullsAndCows'
+import BullsAndCows from './BullsAndCows'
 import { reducer as formReducer } from 'redux-form'
 
 const rootReducer = combineReducers({
-  BullsAndCows: BullsAndCowsReducer,
+  BullsAndCows,
   form: formReducer,
 });
 
