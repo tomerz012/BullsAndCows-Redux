@@ -15,6 +15,10 @@ import { GameStatus } from '../components/GameStatus'
 // Smart components
 import SubmitGuess from './SubmitGuess'
 
+const style = {
+  margin: 12,
+}
+
 class App extends Component {
   render() {
 
@@ -42,6 +46,10 @@ class App extends Component {
       {isGameEnded === false
       ?<SubmitGuess gameStatus={isGameEnded} submitResponse={submitResponse}/>
       :<RaisedButton label='play again' onClick={this.props.resetGame} primary={true}/>}
+      </Center>
+
+      <Center>
+        <RaisedButton label="i give up" primary={true} onClick={this.props.resetGame} style={style}/>
       </Center>
 
       <br/>
