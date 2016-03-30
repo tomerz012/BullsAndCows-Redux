@@ -2,7 +2,7 @@ import { SUBMIT_GUESS, GUESS_INVALID, GET_BULLS_AND_COWS, GAME_IS_WON, TRIES_EXC
 import _ from 'lodash'
 
 const initialState = {
-  secret: _.sample(['cat', 'poutine', 'planets', 'fish', 'plane', 'dangerous' ]),
+  secret: _.sample(['hate', 'hair', 'nice', 'fish', 'plan']),
   bullsAndCows: {
     bulls: 0,
     cows: 0,
@@ -49,7 +49,7 @@ export default function BullsAndCows(state = initialState, action) {
 
     case RESET:
       return Object.assign({},
-        {secret: _.sample(['cat', 'poutine', 'planets', 'fish', 'plane', 'dangerous']),
+        {secret: _.sample(['hate', 'hair', 'nice', 'fish', 'plan']),
         bullsAndCows: {
           bulls: 0,
           cows: 0,

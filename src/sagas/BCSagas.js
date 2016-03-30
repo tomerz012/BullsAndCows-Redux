@@ -1,7 +1,7 @@
 import { call, take, select, put } from 'redux-saga/effects'
 import { SUBMIT_GUESS, submitGuess, guessInvalid, getScore, triesExceeded, gameIsWon } from '../actions'
 import { getBullsAndCows, getSecret, getScoreList, getMaxTries } from '../selectors'
-import { checkGuess, checkGuessValidity, getData, checkNumberOfTries } from '../helpers'
+import { checkGuess, checkGuessValidity, getData, checkNumberOfTries, isAnIsogram } from '../helpers'
 
 export function *guessSubmission()  {
   while (true) {
@@ -13,8 +13,10 @@ export function *guessSubmission()  {
     const secret = yield select(getSecret)
     const maxTries  = yield select(getMaxTries)
 
+    const isogram = yield call(isAnIsogram, playerGuess)
+
     // call helper function to check guess
-    const errorResponse = yield call(checkGuessValidity, playerGuess, secret)
+    const errorResponse = yield call(checkGuessValidity, playerGuess, secret, isogram)
     yield put(guessInvalid(errorResponse))
 
     // If response was OK

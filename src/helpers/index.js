@@ -10,11 +10,14 @@ export const checkNumberOfTries = (getPoints, maxTries, secret) => {
 
 }
 
-export const checkGuessValidity = (guess, secret,) => {
+export const checkGuessValidity = (guess, secret, isogram) => {
   let errorResponse
+  const guessLength = guess.length || 0
   // valid word length
-  if (guess.length !== secret.length ) {
+  if (guessLength !== secret.length ) {
     errorResponse = `Please enter a ${secret.length}-letter word.`
+  } else if (isogram === false) {
+    errorResponse = 'Each letter must be unique.'
   } else {
     errorResponse = 'OK'
   }
@@ -46,4 +49,15 @@ export const checkGuess = (bullsAndCows, guess, secret) => {
     }
   }
   return bullsAndCows
+}
+
+export const isAnIsogram = (word) => {
+  let isAnIsogram = false
+  const wordLength = word.length
+  const repeatChars = _.uniq(word)
+  if( wordLength === repeatChars.length) {
+    isAnIsogram = true
+  }
+
+  return isAnIsogram
 }
