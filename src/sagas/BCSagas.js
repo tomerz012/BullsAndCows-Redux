@@ -8,12 +8,19 @@ export function *guessSubmission()  {
     // wait for SUBMIT_GUESS from user
     const guess = yield take(SUBMIT_GUESS)
     const playerGuess = guess.guess.guess
-    const bullsAndCows = yield select(getBullsAndCows)
+    const BC = yield select(getBullsAndCows)
     const scoreList = yield select(getScoreList)
     const secret = yield select(getSecret)
     const maxTries  = yield select(getMaxTries)
 
     const isogram = yield call(isAnIsogram, playerGuess)
+
+    const bullsAndCows ={
+      bulls: 0,
+      cows: 0,
+      currentTry: BC.currentTry,
+      attempts: BC.attempts,
+    }
 
     // call helper function to check guess
     const errorResponse = yield call(checkGuessValidity, playerGuess, secret, isogram)

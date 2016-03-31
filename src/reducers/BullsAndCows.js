@@ -4,8 +4,6 @@ import _ from 'lodash'
 const initialState = {
   secret: _.sample(['hate', 'hair', 'nice', 'fish', 'plan']),
   bullsAndCows: {
-    bulls: 0,
-    cows: 0,
     currentTry: 0,
     attempts: '',
   },
@@ -21,8 +19,6 @@ export default function BullsAndCows(state = initialState, action) {
     case GET_BULLS_AND_COWS:
       return Object.assign({}, state, {
         bullsAndCows: {
-          bulls: action.payload.getPoints.bulls,
-          cows: action.payload.getPoints.cows,
           attempts: action.payload.getPoints.attempts,
           currentTry: action.payload.getPoints.currentTry
         },
@@ -51,8 +47,6 @@ export default function BullsAndCows(state = initialState, action) {
       return Object.assign({},
         {secret: _.sample(['hate', 'hair', 'nice', 'fish', 'plan']),
         bullsAndCows: {
-          bulls: 0,
-          cows: 0,
           currentTry: 0,
           attempts: '',
         },
