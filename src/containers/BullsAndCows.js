@@ -3,7 +3,9 @@ import { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Center from 'react-center';
-import RaisedButton from 'material-ui/lib/raised-button';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 // Action creators
 import { resetGame } from '../actions'
@@ -19,6 +21,8 @@ const style = {
   margin: 12,
 }
 
+const muiTheme = getMuiTheme({})
+
 class App extends Component {
   render() {
 
@@ -30,32 +34,34 @@ class App extends Component {
     const rounds = this.props.BullsAndCows.bullsAndCows
 
     return (
-      <div >
-      <br/>
-      <Center>
-      <h4> Welcome to Bulls and Cows! </h4>
-      </Center>
-      <br/>
+      <MuiThemeProvider muiTheme={muiTheme}>
+        <div >
+        <br/>
+        <Center>
+        <h4> Welcome to Bulls and Cows! </h4>
+        </Center>
+        <br/>
 
-      <Center>
-      {GameStatus(status, secretWord)}
-      </Center>
-      <br/>
+        <Center>
+        {GameStatus(status, secretWord)}
+        </Center>
+        <br/>
 
-      <Center>
-      {isGameEnded === false
-      ?<SubmitGuess gameStatus={isGameEnded} submitResponse={submitResponse}/>
-      :<RaisedButton label='play again' onClick={this.props.resetGame} primary={true}/>}
-      </Center>
+        <Center>
+        {isGameEnded === false
+        ?<SubmitGuess gameStatus={isGameEnded} submitResponse={submitResponse}/>
+        :<RaisedButton label='play again' onClick={this.props.resetGame} primary={true}/>}
+        </Center>
 
-      <Center>
-        <RaisedButton label="i give up" primary={true} onClick={this.props.resetGame} style={style}/>
-      </Center>
+        <Center>
+          <RaisedButton label="i give up" primary={true} onClick={this.props.resetGame} style={style}/>
+        </Center>
 
-      <br/>
-      <br/>
-      {BCDataList(data)}
-      </div>
+        <br/>
+        <br/>
+        {BCDataList(data)}
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

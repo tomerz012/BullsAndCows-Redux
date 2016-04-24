@@ -7,8 +7,8 @@ import { reduxForm } from 'redux-form'
 import { submitGuess } from '../actions';
 
 // Material-UI Components
-import TextField from 'material-ui/lib/text-field';
-import RaisedButton from 'material-ui/lib/raised-button';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class SubmitGuess extends Component {
   static PropTypes = {
